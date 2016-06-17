@@ -13,6 +13,16 @@
  */
 
 $(document).ready(function(){
+  //to the top vars
+  var offset = 250, duration = 300;
+  //preloader vars
+  var preloader_main = $('#preloader'), preloader_img_holder = $('#preloader-img-holder')
+  
+  $(window).load(function(e){
+		 $("#status").fadeOut("slow");
+   $("#preloader").delay(1000).fadeOut("slow").remove(); 
+	});
+  
     // Initialize Tooltip
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -37,16 +47,32 @@ $(document).ready(function(){
 
     // check if scroll event happened
     $(window).scroll(function() {
-        // check if user scrolled more than 550 from top of the browser window
-        if ($(document).scrollTop() > 550) {
-            // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
-            $(".navbar-fixed-top").css("background-color", "#0e820e");
-        } 
-        else {
-            $(".navbar-fixed-top").css("background-color", "transparent"); // if not, change it back to transparent
-            
+        // check if user scrolled more than 450 from top of the browser window
+        if ($(document).scrollTop() > 450) {
+            $(".navbar-fixed-top").css("background-color", "#2aac2a");
+            $(".navbar-default .navbar-nav > li > a ").css("color", "#fff");
+        } else {
+          // if not, change it back to transparent
+            $(".navbar-fixed-top").css("background-color", "transparent");
+            $(".navbar-default .navbar-nav > li > a").css("color", "#fff");
+        }
+      if ($(this).scrollTop() > offset) {
+          $(".back-to-top").fadeIn(duration);
+        } else {
+            $(".back-to-top").fadeOut(duration);
         }
     });
-    
-   
+  
+  //navbar hamburger toggle
+  $(".navbar-toggle").on("click", function () {
+				    $(this).toggleClass("active");
+    });
+  
+  $(".back-to-top").click(function(event) {
+      event.preventDefault();
+    $("html, body").animate({scrollTop: 0}, duration);
+    return false;
+    })
+
 });
+
